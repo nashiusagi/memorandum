@@ -1,11 +1,12 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { Link } from "@inertiajs/react";
+//import ColorSchemeToggle from "../../Components/ColorSchemeToggle";
+import ReactMarkdown from 'react-markdown'
 
 const previewStyle = {
     display: "flex",
-    width: "100vw",
-    height: "40vh",
+    justifyContent: "space-between"
 };
 
 const Create = () => {
@@ -13,6 +14,8 @@ const Create = () => {
         title: "",
         body: "",
     });
+
+    const [markedBody, setMarkedBody] = useState("");
 
     const handleChange = (e) => {
         const key = e.target.id;
@@ -26,7 +29,9 @@ const Create = () => {
         axios
             .post(route("tips.markdown"), values)
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
+
+                setMarkedBody(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -39,7 +44,7 @@ const Create = () => {
         axios
             .post(route("tips.store"), values)
             .then((response) => {
-                console.log(response);
+                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -60,7 +65,7 @@ const Create = () => {
                 <br />
                 本文：
                 <div style={previewStyle}>
-                    <div>
+                    <div style={{width:"50%", marginRight: 10}}>
                         <textarea
                             id="body"
                             name="tips[body]"
@@ -68,7 +73,10 @@ const Create = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div>preview here</div>
+                    <div style={{width:"50%"}}>
+                        Preview<br />
+                        <ReactMarkdown children={markedBody} />
+                    </div>
                 </div>
                 <button type="submit">Store</button>
             </form>

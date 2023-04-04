@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tip;
-use Illuminate\Http\Request;
+use App\Http\Requests\TipsRequest;
+use Illuminate\Support\Str;
 
 class TipController extends Controller
 {
@@ -17,5 +18,11 @@ class TipController extends Controller
     public function create()
     {
         return inertia('Tip/Create');
+    }
+
+    public function markdown(TipsRequest $request){
+        $value = $request['body'];
+
+        return Str::of($value)->markdown();
     }
 }
