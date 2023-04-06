@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.js";
 
-const Show = (props) => {
+const Show = (props: any) => {
     return (
         <div className="dark">
             <AuthenticatedLayout

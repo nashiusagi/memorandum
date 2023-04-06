@@ -1,22 +1,27 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import React from "react";
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/Components/InputError";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, useForm } from "@inertiajs/react";
 
-export default function ForgotPassword({ status }) {
+interface Props {
+    status: string;
+}
+
+export default function ForgotPassword({ status }: Props) {
     const { data, setData, post, processing, errors } = useForm({
-        email: '',
+        email: "",
     });
 
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.value);
+    const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setData(event.target.name as "email", event.target.value);
     };
 
-    const submit = (e) => {
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        post(route('password.email'));
+        post(route("password.email"));
     };
 
     return (
@@ -24,11 +29,16 @@ export default function ForgotPassword({ status }) {
             <Head title="Forgot Password" />
 
             <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
+                Forgot your password? No problem. Just let us know your email
+                address and we will email you a password reset link that will
+                allow you to choose a new one.
             </div>
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            {status && (
+                <div className="mb-4 font-medium text-sm text-green-600">
+                    {status}
+                </div>
+            )}
 
             <form onSubmit={submit}>
                 <TextInput

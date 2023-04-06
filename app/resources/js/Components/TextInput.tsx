@@ -1,7 +1,30 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import React from "react";
+import { forwardRef, useEffect, useRef } from "react";
+
+interface Props {
+    type: any;
+    name: any;
+    id: any;
+    value: any;
+    className: any;
+    autoComplete: any;
+    required: any;
+    isFocused: any;
+    handleChange: any;
+}
 
 export default forwardRef(function TextInput(
-    { type = 'text', name, id, value, className, autoComplete, required, isFocused, handleChange },
+    {
+        type = "text",
+        name,
+        id,
+        value,
+        className,
+        autoComplete,
+        required,
+        isFocused,
+        handleChange,
+    }: Props,
     ref
 ) {
     const input = ref ? ref : useRef();

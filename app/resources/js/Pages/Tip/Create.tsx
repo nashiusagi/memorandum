@@ -1,16 +1,16 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "@inertiajs/react";
 //import ColorSchemeToggle from "../../Components/ColorSchemeToggle";
 import ReactMarkdown from "react-markdown";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.js";
 
 const previewStyle = {
     display: "flex",
     justifyContent: "space-between",
 };
 
-const Create = (props) => {
+const Create = (props: any) => {
     const [values, setValues] = useState({
         title: "",
         body: "",
@@ -18,7 +18,7 @@ const Create = (props) => {
 
     const [markedBody, setMarkedBody] = useState("");
 
-    const handleChange = async (e) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const key = e.target.id;
         const value = e.target.value;
 
@@ -39,7 +39,7 @@ const Create = (props) => {
             });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(values);
         axios
