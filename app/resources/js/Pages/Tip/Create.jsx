@@ -3,13 +3,14 @@ import axios from "axios";
 import { Link } from "@inertiajs/react";
 //import ColorSchemeToggle from "../../Components/ColorSchemeToggle";
 import ReactMarkdown from "react-markdown";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 
 const previewStyle = {
     display: "flex",
     justifyContent: "space-between",
 };
 
-const Create = () => {
+const Create = (props) => {
     const [values, setValues] = useState({
         title: "",
         body: "",
@@ -74,39 +75,53 @@ const Create = () => {
     });
 
     return (
-        <>
-            タイトル：
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    id="title"
-                    name="tips[title]"
-                    value={values.title}
-                    onChange={handleChange}
-                />
-                <br />
-                本文：
-                <div style={previewStyle}>
-                    <div style={{ width: "50%", marginRight: 10 }}>
-                        <textarea
-                            id="body"
-                            name="tips[body]"
-                            value={values.body}
-                            onChange={handleChange}
-                        />
+        <div className="dark">
+            <AuthenticatedLayout
+                auth={props.auth}
+                errors={props.errors}
+                header={
+                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                        Dashboard
+                    </h2>
+                }
+            >
+                <p className="text-white">タイトル</p>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        id="title"
+                        name="tips[title]"
+                        value={values.title}
+                        onChange={handleChange}
+                    />
+                    <br />
+                    <p className="text-white">本文：</p>
+                    <div style={previewStyle}>
+                        <div style={{ width: "50%", marginRight: 10 }}>
+                            <textarea
+                                id="body"
+                                name="tips[body]"
+                                value={values.body}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div style={{ width: "50%", color: "#ffffff" }}>
+                            <p>Preview</p>
+                            <br />
+                            <ReactMarkdown children={markedBody} />
+                        </div>
                     </div>
-                    <div style={{ width: "50%" }}>
-                        Preview
-                        <br />
-                        <ReactMarkdown children={markedBody} />
-                    </div>
-                </div>
-                <button type="submit">Store</button>
-            </form>
-            <p>
-                <Link href="/tips">back</Link>
-            </p>
-        </>
+                    <button type="submit">
+                        <p className="text-white">Store</p>
+                    </button>
+                </form>
+                <p>
+                    <Link href="/tips">
+                        <p className="text-white">back</p>
+                    </Link>
+                </p>
+            </AuthenticatedLayout>
+        </div>
     );
 };
 
